@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Share Lokasi</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 2em;
+    }
+    button {
+      padding: 12px 24px;
+      font-size: 18px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h2>📍 Share Lokasi Saya</h2>
+  <p>Klik tombol di bawah untuk mengirim lokasi ke sistem.</p>
+  <button id="shareBtn">Share Lokasi</button>
+
+  <script>
+    document.getElementById("shareBtn").addEventListener("click", function () {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          const time = new Date().toISOString();
+          const device = navigator.userAgent;
+          const mapsLink = `https://maps.google.com/?q=${lat},${lon}`;
+
+          const data = {
+            time: time,
+            device: device,
+            lat: lat,
+            lon: lon,
+            maps_link: mapsLink
+          };
+
+          fetch("https://script.google.com/macros/s/AKfycbyEq2bS57p3QEHqiE4AFxXcd14XWVAAtfJw9fLNu8eU371ZBeJyi_Tv_WKhzjqXvstxEQ/exec", {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+          });
+
+          alert("✅ Lokasi berhasil dikirim!");
+        }, function (err) {
+          alert("❌ Gagal mendapatkan lokasi: " + err.message);
+        });
+      } else {
+        alert("❌ Browser tidak mendukung geolocation.");
+      }
+    });
+  </script>
+</body>
+</html>
